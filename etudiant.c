@@ -1,6 +1,6 @@
 #include "etudiant.h"
 #include <stdio.h>
-
+#include<string.h>
 void enregistrerEtudiant(ListeEtudiants *liste, Etudiant e) {
     
 }
