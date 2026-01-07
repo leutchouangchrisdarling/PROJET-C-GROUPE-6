@@ -223,3 +223,45 @@ void modifierEtudiant(Etudiant *etudiants[], int nombre) {
     }
     printf("Etudiant non trouve\n");
 }
+
+// Recherche un étudiant
+void rechercherEtudiant(Etudiant *etudiants[], int nombre) {
+    char nom[50];
+    printf("Nom a rechercher: ");
+    scanf("%s", nom);
+    
+    int trouve = 0;
+    for (int i = 0; i < nombre; i++) {
+        if (strcmp(etudiants[i]->nom, nom) == 0) {
+            printf("\nMatricule: %s\n", etudiants[i]->matricule);
+            printf("Nom: %s\n", etudiants[i]->nom);
+            printf("Prenom: %s\n", etudiants[i]->prenom);
+            printf("Date: %02d/%02d/%04d\n", etudiants[i]->jour, etudiants[i]->mois, etudiants[i]->annee);
+            printf("Departement: %s\n", etudiants[i]->departement);
+            printf("Region: %s\n", etudiants[i]->region);
+            printf("Filiere: %s\n", etudiants[i]->filiere);
+            trouve = 1;
+        }
+    }
+    if (!trouve) printf("Aucun etudiant CORRESPONDANT A CETTE RECHERCHE N'AS ETE trouve\n");
+}
+
+// Supprime un étudiant
+void supprimerEtudiant(Etudiant *etudiants[], int *nombre) {
+    char matricule[15];
+    printf("Matricule de l'etudiant a supprimer: ");
+    scanf("%s", matricule);
+    
+    for (int i = 0; i < *nombre; i++) {
+        if (strcmp(etudiants[i]->matricule, matricule) == 0) {
+            free(etudiants[i]);
+            for (int j = i; j < *nombre - 1; j++) {
+                etudiants[j] = etudiants[j + 1];
+            }
+            (*nombre)--;
+            printf("NOUS AVONS SUPPRIMER CETTE ETUDIANT\n");
+            return;
+        }
+    }
+    printf("Etudiant non trouve\n");
+}
