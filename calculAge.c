@@ -4,6 +4,7 @@ void calculerAgeEtudiant(Etudiant *etudiants[], int nombre) {
     printf("Matricule de l'etudiant: ");
     scanf("%s", matricule);
     
+    //test si l'étudiant existe
     for (int i = 0; i < nombre; i++) {
         if (strcmp(etudiants[i]->matricule, matricule) == 0) {
             int age = anneeActuelle() - etudiants[i]->annee;
