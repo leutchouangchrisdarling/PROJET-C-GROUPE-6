@@ -18,11 +18,6 @@ int anneeActuelle() {
     return 2026; // Année fixe comme demandé
 }
 
-// Retourne l'année actuelle (2026)
-int anneeActuelle() {
-    return 2026; // Année fixe comme demandé
-}
-
 // Charge les étudiants depuis fichier
 void chargerEtudiants(Etudiant *etudiants[], int *nombre) {
     FILE *f = fopen("etudiants.txt", "r");
