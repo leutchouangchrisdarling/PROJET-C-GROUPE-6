@@ -1,37 +1,35 @@
-#ifndef _ETUDIANT_H
-#define _ETUDIANT_H
+#ifndef etudiant_H
+#define etudiant_H
 
-typedef struct {
-  int jour;
-  int mois;
-  int annee;
-} Date;
+#define MAX_ETUDIANTS 100
 
+// Structure d'un étudiant
 typedef struct {
-  char nom[30];
-  char prenom[30];
-  char matricule[20];
-  char filiere[30];
-  char departement[30];
-  char region[30];
-  Date dateNaissance;
+    char matricule[15];      // Format: 26ENSPMETU001
+    char nom[50];           // Nom de l'étudiant
+    char prenom[50];        // Prénom de l'étudiant
+    int jour, mois, annee;  // Date de naissance séparée
+    char departement[50];   // Département d'origine
+    char region[50];        // Région d'origine
+    char filiere[50];       // Filière choisie
 } Etudiant;
 
-typedef struct {
-  Etudiant *etudiants;
-  int taille;
-  int nbEtudiants;
-} ListeEtudiants;
+// Fonctions principales
+void chargerEtudiants(Etudiant *etudiants[], int *nombre);
+void sauvegarderEtudiants(Etudiant *etudiants[], int nombre);
+void enregistrerEtudiant(Etudiant *etudiants[], int *nombre);
+void modifierEtudiant(Etudiant *etudiants[], int nombre);
+void rechercherEtudiant(Etudiant *etudiants[], int nombre);
+void supprimerEtudiant(Etudiant *etudiants[], int *nombre);
+void trierAlphabetique(Etudiant *etudiants[], int nombre);
+void rechercheDichotomique(Etudiant *etudiants[], int nombre);
+void calculerAgeEtudiant(Etudiant *etudiants[], int nombre);
+void trierParFiliere(Etudiant *etudiants[], int nombre);
+void afficherTousEtudiants(Etudiant *etudiants[], int nombre);
+void afficherMenu();
 
-void enregistrerEtudiant(ListeEtudiants *liste, Etudiant e);
-void afficherEtudiant(Etudiant e); // Affiche un seul étudiant
-void afficherEtudiants(ListeEtudiants liste); // Affiche la liste des étudiants
-void rechercherEtudiant(ListeEtudiants liste);
-void trierParNom(ListeEtudiants liste);
-void trierParFiliere(ListeEtudiants liste);
-void trierParMatricule(ListeEtudiants liste);
-int rechercheDichotomique(ListeEtudiants liste, char matricule[]);
-void ecrireListeDansFichier(ListeEtudiants liste, char* nomFichier);
-int calculerAge(Etudiant e);
+// Fonctions utilitaires
+int matriculeExiste(Etudiant *etudiants[], int nombre, char *matricule);
+int anneeActuelle();  // Retourne l'année actuelle (2026)
 
 #endif
