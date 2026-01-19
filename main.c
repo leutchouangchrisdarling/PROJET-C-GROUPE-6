@@ -32,6 +32,11 @@ int main() {
             case 8: trierParFiliere(etudiants, nombreEtudiants); break;
             case 9: afficherTousEtudiants(etudiants, nombreEtudiants); break;
             case 10: 
+                statistiquesAge(etudiants, nombreEtudiants);
+                statistiquesFiliere(etudiants, nombreEtudiants);
+                statistiquesRegion(etudiants, nombreEtudiants);
+                break;
+            case 11: 
                 sauvegarderEtudiants(etudiants, nombreEtudiants);
                 printf("Donnees sauvegardees. Au revoir!\n");
                 break;
@@ -39,12 +44,12 @@ int main() {
         }
         
         // Pause entre les actions
-        if (choix != 10) {
+        if (choix != 11) {
             printf("\nAppuyez sur Entree pour continuer...");
             getchar();
         }
         
-    } while (choix != 10);
+    } while (choix != 11);
     
     // Libérer la mémoire
     for (int i = 0; i < nombreEtudiants; i++) {
