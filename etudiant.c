@@ -15,7 +15,7 @@ int matriculeExiste(Etudiant *etudiants[], int nombre, char *matricule) {
 
 // Retourne l'année actuelle (2026)
 int anneeActuelle() {
-    return 2026; // Année fixe comme demandé
+    return 2026; 
 }
 
 // Charge les étudiants depuis fichier
@@ -457,6 +457,93 @@ void afficherMenu() {
     printf("7. Calcul de l'age de l'etudiant\n");
     printf("8. Trier par filiere\n");
     printf("9. Afficher la liste complete des etudiants\n");
-    printf("10. Sauvegarder et quitter\n");
+    printf("10. Statistiques internes: Age, Filiere, Region\n");
+    printf("11. Sauvegarder et quitter\n");
     printf("QUELLE OPTION DU MENU VOUS INTERESSE: ");
+}
+
+// fonctions stastiques internes
+void statistiquesAge(Etudiant *etudiants[], int nombre) {
+    int compteurs[5] = {0};
+    
+    for (int i = 0; i < nombre; i++) {
+        int age = anneeActuelle() - etudiants[i]->annee;
+        if (age < 20) compteurs[0]++;
+        else if (age <= 25) compteurs[1]++;
+        else if (age <= 30) compteurs[2]++;
+        else if (age <= 35) compteurs[3]++;
+        else compteurs[4]++;
+    }
+    
+    printf("\n=== STATISTIQUES PAR AGE ===\n");
+    const char *tranches[5] = {
+        "<20 ans",
+        "20-25 ans",
+        "26-30 ans",
+        "31-35 ans",
+        ">35 ans"
+    };
+    
+    for (int j = 0; j < 5; j++) {
+        float pourcentage = (nombre > 0) ? ((float)compteurs[j] / nombre * 100) : 0;
+        printf("%-10s : %d etudiant(s) \t %3f %% \n", tranches[j], compteurs[j], pourcentage);
+    }
+}
+
+void statistiquesFiliere(Etudiant *etudiants[], int nombre) {
+    int compteurs[5] = {0};
+    const char *filieres[5] = {
+        "Reseau et Telecommunication",
+        "Securite et Cryptographie",
+        "Genie Logiciel",
+        "Robotique et Systeme Embarque",
+        "Data Science"
+    };
+
+    for (int i = 0; i < nombre; i++) {
+        for (int j = 0; j < 5; j++) {
+            if (strcmp(etudiants[i]->filiere, filieres[j]) == 0) {
+                compteurs[j]++;
+                break;
+            }
+        }
+    }
+
+    printf("\n=== STATISTIQUES PAR FILIERE ===\n");
+    for (int j = 0; j < 5; j++) {
+        float pourcentage = (nombre > 0) ? ((float)compteurs[j] / nombre * 100) : 0;
+        printf("%-30s : %d etudiant(s) \t %3f %% \n", filieres[j], compteurs[j], pourcentage);
+    }
+}
+
+void statistiquesRegion(Etudiant *etudiants[], int nombre) {
+    typedef struct {
+        char region[50];
+        int compteur;
+    } RegionStat;
+
+    RegionStat regions[MAX_ETUDIANTS];
+    int regionCount = 0;
+
+    for (int i = 0; i < nombre; i++) {
+        int trouve = 0;
+        for (int j = 0; j < regionCount; j++) {
+            if (strcmp(etudiants[i]->region, regions[j].region) == 0) {
+                regions[j].compteur++;
+                trouve = 1;
+                break;
+            }
+        }
+        if (!trouve) {
+            strcpy(regions[regionCount].region, etudiants[i]->region);
+            regions[regionCount].compteur = 1;
+            regionCount++;
+        }
+    }
+
+    printf("\n=== STATISTIQUES PAR REGION ===\n");
+    for (int j = 0; j < regionCount; j++) {
+        float pourcentage = (nombre > 0) ? ((float)regions[j].compteur / nombre * 100) : 0;
+        printf("%-20s : %d etudiant(s) \t %3f %% \n", regions[j].region, regions[j].compteur, pourcentage);
+    }
 }
