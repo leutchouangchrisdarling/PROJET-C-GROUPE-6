@@ -28,6 +28,13 @@ void trierParFiliere(Etudiant *etudiants[], int nombre);
 void afficherTousEtudiants(Etudiant *etudiants[], int nombre);
 void afficherMenu();
 
+// fonctions stastiques internes
+void statistiquesAge(Etudiant *etudiants[], int nombre);
+void statistiquesFiliere(Etudiant *etudiants[], int nombre);
+void statistiquesRegion(Etudiant *etudiants[], int nombre);
+
+
+
 // Fonctions utilitaires
 int matriculeExiste(Etudiant *etudiants[], int nombre, char *matricule);
 int anneeActuelle();  // Retourne l'année actuelle (2026)
